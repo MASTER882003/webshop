@@ -14,7 +14,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::get();
+
+        return view('product.index', compact('products'));
+        //dd($products->name);
     }
 
     /**
@@ -46,7 +49,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return view('product.show', ['product' => $product]);
     }
 
     /**
@@ -57,7 +60,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return view('product.edit', ['product'=>$product]);
     }
 
     /**
@@ -69,7 +72,9 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $product->name = $request->name;
+        $product->save();
+        return redirect(route('product.show', ['product' => $product]));
     }
 
     /**
